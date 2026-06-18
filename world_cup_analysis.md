@@ -24,12 +24,14 @@ library(countrycode)
 
 We'll scrape data from Wikipedia about the 2026 FIFA World Cup
 participating countries and combine it with FIFA rankings and
-confederation information.
+confederation information. The FIFA rankings used are from 2024
+(historical data for this 2026 analysis).
 
 ``` r
 # Since the 2026 World Cup qualification is ongoing, we'll create a dataset
 # based on the qualified teams and confederations
 # As of the data collection, we'll use the tournament structure information
+# Note: FIFA rankings are from 2024 (historical baseline data)
 
 # Create a dataset of participating confederations and their allocations
 world_cup_data <- tibble(
@@ -69,6 +71,8 @@ participating_countries <- tibble(
     "Egypt", "Cameroon", "Ghana", "Ivory Coast",
     # CONCACAF (additional) - 3 more slots
     "Costa Rica", "Jamaica", "Panama",
+    # Intercontinental playoff qualifiers - 2 slots
+    "United Arab Emirates", "Peru",
     # OFC (Oceania) - 1 slot
     "New Zealand"
   ),
@@ -79,6 +83,7 @@ participating_countries <- tibble(
     rep("AFC", 8),
     rep("CAF", 9),
     rep("CONCACAF", 3),
+    "AFC", "CONMEBOL",
     rep("OFC", 1)
   ),
   fifa_ranking_2024 = c(
@@ -94,6 +99,8 @@ participating_countries <- tibble(
     20, 13, 28, 32, 42, 36, 51, 58, 39,
     # CONCACAF additional
     52, 54, 50,
+    # Playoff qualifiers
+    68, 31,
     # OFC
     95
   ),
@@ -110,6 +117,8 @@ participating_countries <- tibble(
     3, 6, 6, 4, 7, 3, 8, 4, 3,
     # CONCACAF additional
     6, 2, 4,
+    # Playoff qualifiers
+    1, 6,
     # OFC
     2
   )
@@ -148,9 +157,9 @@ kable(confederation_summary,
 | Confederation                       | Teams | Avg FIFA Rank | Avg WC Apps | Best Rank | Worst Rank |
 |:------------------------------------|------:|--------------:|------------:|----------:|-----------:|
 | Europe                              |    16 |          13.1 |        11.6 |         2 |         33 |
+| Asia                                |     9 |          43.8 |         5.2 |        17 |         87 |
 | Africa                              |     9 |          35.4 |         4.9 |        13 |         58 |
-| Asia                                |     8 |          42.2 |         5.5 |        17 |         87 |
-| South America                       |     6 |          15.0 |        12.5 |         1 |         30 |
+| South America                       |     7 |          16.7 |        11.4 |         1 |         31 |
 | North/Central America & Caribbean   |     6 |          30.2 |         7.5 |        11 |         54 |
 | Oceania                             |     1 |          95.0 |         2.0 |        95 |         95 |
 
@@ -336,8 +345,8 @@ cat("- Most World Cup appearances:",
 ```
 
     Key Statistics:
-    - Total participating teams: 46 
-    - European teams (UEFA): 16 (34.8%) 
+    - Total participating teams: 48 
+    - European teams (UEFA): 16 (33.3%) 
     - Host nations: 3 (USA, Mexico, Canada)
     - Highest ranked team: Argentina 
     - Most World Cup appearances: Brazil with 22 appearances
