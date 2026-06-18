@@ -293,7 +293,7 @@ world_map_data <- world_map_data %>%
 
 # Create the map
 ggplot(world_map_data, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = confederation_name), color = "white", size = 0.1) +
+  geom_polygon(aes(fill = confederation_name), color = "white", linewidth = 0.1) +
   scale_fill_manual(
     values = c(
       "Europe" = "#E41A1C",
